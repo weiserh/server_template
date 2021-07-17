@@ -29,6 +29,14 @@ namespace HilaWeiser_align
             services.AddControllers();
             services.Add(new ServiceDescriptor(typeof(IManager), new Manager()));
 
+            //services.AddSingleton<IManager>(manager =>
+            //ActivatorUtilities.CreateInstance<Manager>(manager, DbAccessor));
+            services.AddCors(o => o.AddPolicy("UserPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,6 +50,8 @@ namespace HilaWeiser_align
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors();
 
             app.UseAuthorization();
 

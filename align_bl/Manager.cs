@@ -6,6 +6,12 @@ namespace align_bl
 {
     public class Manager : IManager
     {
+       // public Manager(IDbAccessor dbAccessor)
+        public Manager()
+        {
+            DbAccessor dbAccessor = new DbAccessor();
+        }
+
         public Task<List<Product>> GetProducts()
         {
             throw new NotImplementedException();

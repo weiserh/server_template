@@ -1,5 +1,6 @@
 ﻿using align_bl;
 using HilaWeiser_align.Models;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,8 @@ using System.Threading.Tasks;
 
 namespace HilaWeiser_align.Controllers
 {
+
+    [EnableCors("UserPolicy")]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductController : ControllerBase
@@ -24,7 +27,7 @@ namespace HilaWeiser_align.Controllers
         [HttpGet]
         public async Task<Response<List<Product>>> Get()
         {
-            Response<List<Product>> response = new Response<List<Product>();
+            Response<List<Product>> response = new Response<List<Product>>();
 
             List<Product> products = await _manager.GetProducts();
 
