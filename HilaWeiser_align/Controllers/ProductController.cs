@@ -1,4 +1,5 @@
 ﻿using align_bl;
+using HilaWeiser_align.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -21,35 +22,96 @@ namespace HilaWeiser_align.Controllers
 
         // GET: api/<ProductController>
         [HttpGet]
-        public async Task<IEnumerable<Product>> Get()
+        public async Task<Response<List<Product>>> Get()
         {
-            return await _manager.GetProducts();
+            Response<List<Product>> response = new Response<List<Product>();
+
+            List<Product> products = await _manager.GetProducts();
+
+            if (products != null)
+            {
+                response.SetSuccess(products);
+            }
+            else
+            {
+                response.SetFail("Fail to get");
+            }
+            return response;
         }
 
         // GET api/<ProductController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<Response<Product>> Get([FromQuery] int id)
         {
+            Response<Product> response = new Response<Product>();
 
-            return "value";
+            Product product = (await _manager.GetProducts())[0];
+
+            if (product != null)
+            {
+                response.SetSuccess(product);
+            }
+            else
+            {
+                response.SetFail("Fail to get");
+            }
+            return response;
         }
 
         // POST api/<ProductController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<Response<int>> Post([FromBody] Product product)
         {
+            Response<int> response = new Response<int>();
+            
+            int newProduct = await _manager.AddProduct(product);
+
+            if (newProduct > 0)
+            {
+                response.SetSuccess(newProduct);
+            }
+            else
+            {
+                response.SetFail("Fail to add");
+            }
+            return response;
         }
 
         // PUT api/<ProductController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public async Task<Response<bool>> Put([FromBody] Product product)
         {
+            Response<bool> response = new Response<bool>();
+
+            bool isSuccess = await _manager.UpdateProduct(product);
+            if (isSuccess)
+            {
+                response.IsSuccess = true;
+            }
+            else
+            {
+                response.SetFail("Fail to update");
+            };
+            return response;
         }
 
         // DELETE api/<ProductController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<Response<bool>> Delete([FromQuery] int id)
         {
+            Response<bool> response = new Response<bool>();
+
+            bool isSuccess = await _manager.DeleteProduct(id);
+
+            if (isSuccess)
+            {
+                response.IsSuccess = true;
+            }
+            else
+            {
+                response.SetFail($"Fail to delete {id}");
+            }
+            return response;
         }
     }
 }

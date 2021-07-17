@@ -9,5 +9,8 @@ namespace align_bl
     {
         Task<List<Product>> GetProducts();
         Task<int> AddProduct(Product product);
+        Task<bool> UpdateProduct(Product product);
+        Task<bool> DeleteProduct(int productId);
+
     }
 }
