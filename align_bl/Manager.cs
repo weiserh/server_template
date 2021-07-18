@@ -6,15 +6,17 @@ namespace align_bl
 {
     public class Manager : IManager
     {
+        private DbAccessor _dbAccessor;
+
        // public Manager(IDbAccessor dbAccessor)
         public Manager()
         {
-            DbAccessor dbAccessor = new DbAccessor();
+            _dbAccessor = new DbAccessor();
         }
 
-        public Task<List<Product>> GetProducts()
+        public async Task<List<Product>> GetProducts()
         {
-            throw new NotImplementedException();
+            return await _dbAccessor.GetProducts();
         }
 
         public Task<int> AddProduct(Product product)

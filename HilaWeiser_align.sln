@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31410.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HilaWeiser_align", "HilaWeiser_align\HilaWeiser_align.csproj", "{B8D1485E-8790-4851-B933-E55288DCE49D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "align_bl", "align_bl\align_bl.csproj", "{7B74C2A2-9DD5-44D5-84C2-FBDACEAFBCC0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "align_bl", "align_bl\align_bl.csproj", "{7B74C2A2-9DD5-44D5-84C2-FBDACEAFBCC0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

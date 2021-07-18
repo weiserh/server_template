@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -7,17 +8,21 @@ namespace align_bl
 {
     internal class DbAccessor : IDbAccessor
     {
+        private ProductContext _context;
+        public DbAccessor()
+        {
+            _context = new ProductContext();
+        }
         //private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
-        //private ParkingEntities contex;
-        public Task<List<Product>> GetProducts()
+        public async Task<List<Product>> GetProducts()
         {
             try
             {
-                //var parkingDetails = contex.Parking.Include("Cities").Include("Streets").ToList();
+                return _context.Products.ToList();
 
-                //return parkingDetails.Select(m => new ParkingDetails
+                //return productList.Select(m => new Product
                 //{
-                //    ParkID = m.ParkID,
+                //    Id = m.Id,
                 //    ParkStartDate = m.ParkStartDate,
                 //    ParkEndDate = m.ParkEndDate,
                 //    CityDesc = m.Cities.CityDesc,
@@ -25,8 +30,9 @@ namespace align_bl
 
                 //}).ToList();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                var error = ex;
                 //Logger.Error(ex.Message, ex.StackTrace);
             }
             return null;
